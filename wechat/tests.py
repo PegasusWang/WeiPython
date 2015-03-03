@@ -1,16 +1,18 @@
+# -*- coding:utf-8 -*-
 """
-This file demonstrates writing tests using the unittest module. These will pass
-when you run "manage.py test".
+# Author: Pegasus Wang (pegasuswang@qq.com, http://ningning.today)
+# Created Time : Tue Mar  3 19:44:02 2015
 
-Replace this with more appropriate tests for your application.
+# File Name: tests.py
+# Description:
+
 """
+import requests
+import codecs
 
-from django.test import TestCase
+f = codecs.open(u'post.xml', u'r', u'utf-8')
+content = u''.join(f.readlines())
+f.close()
 
-
-class SimpleTest(TestCase):
-    def test_basic_addition(self):
-        """
-        Tests that 1 + 1 always equals 2.
-        """
-        self.assertEqual(1 + 1, 2)
+res = requests.post(u'http://2.pegasuswang.sinaapp.com/wechat/', data=content.encode(u'utf-8'))
+print res.text
