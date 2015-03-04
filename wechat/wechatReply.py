@@ -126,10 +126,10 @@ class Video(object):
         self.ThumbMediaId = thumbMediaId
 
 
-class VideoMessage(BaseReply):
-    """video reply messag class"""
+class VideoReply(BaseReply):
+    """video reply message class"""
     def __init__(self):
-        super(VideoMessage, self).__init__()
+        super(VideoReply, self).__init__()
         self.Video = Video()
 
     def getVideo(self):
