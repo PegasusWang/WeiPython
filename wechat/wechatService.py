@@ -38,7 +38,8 @@ class WechatService(object):
         textReply.setMsgType(MessageUtil.RESP_MESSAGE_TYPE_TEXT)
 
         if msgType == MessageUtil.REQ_MESSAGE_TYPE_TEXT:
-            respContent = u'您发送的是文本消息！'
+            content = requestMap.get('Content').decode('utf-8')
+            respContent = u'您发送的是文本消息: ' + content
         elif msgType == MessageUtil.REQ_MESSAGE_TYPE_IMAGE:
             respContent = u'您发送的是图片消息！'
         elif msgType == MessageUtil.REQ_MESSAGE_TYPE_VOICE:
