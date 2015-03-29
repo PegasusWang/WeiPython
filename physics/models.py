@@ -3,9 +3,9 @@ from django.db import models
 
 class Student(models.Model):
     """Student Info"""
-    stu_id = models.CharField('学号', max_length=30, primary_key=True)
-    name = models.CharField('姓名', max_length=30)
-    password = models.CharField('密码', max_length=30)
+    stu_id = models.CharField(u'学号', max_length=30, primary_key=True)
+    name = models.CharField(u'姓名', max_length=30)
+    password = models.CharField(u'密码', max_length=30)
 
     def __unicode__(self):
         return '{stu_id} {name}'.format(stu_id=self.stu_id, name=self.name)
@@ -13,7 +13,7 @@ class Student(models.Model):
 
 class Teacher(models.Model):
     """Teacher Info"""
-    name = models.CharField('姓名', max_length=30)
+    name = models.CharField(u'姓名', max_length=30)
 
     def __unicode__(self):
         return self.name
