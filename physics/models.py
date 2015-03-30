@@ -31,6 +31,7 @@ class Questoin(models.Model):
 
 class Notification(self):
     """Notification Info"""
+    owener = models.ForeignKey(Teacher)
     title = models.TextField(u'通知标题')
     content = models.TextField(u'通知内容')
     time = models.DateField(u'通知时间')
