@@ -21,9 +21,9 @@ class Teacher(models.Model):
 
 class Questoin(models.Model):
     """Question Info"""
-    title = models.TextField()
-    content = models.TextField()
-    answer = models.CharField(max_length=1)
+    title = models.TextField(u'题目')
+    content = models.TextField(u'选项')
+    answer = models.CharField(u'答案', max_length=1)
 
     def __unicode__(self):
         return self.title
@@ -31,9 +31,9 @@ class Questoin(models.Model):
 
 class Notification(self):
     """Notification Info"""
-    title = models.TextField()
-    content = models.TextField()
-    time = models.DateField()
+    title = models.TextField(u'通知标题')
+    content = models.TextField(u'通知内容')
+    time = models.DateField(u'通知时间')
 
     def __unicode__(self):
         return self.title
