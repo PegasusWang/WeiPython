@@ -10,9 +10,27 @@
 # :license: MIT, see LICENSE for more details.
 """
 
+import json
 import time
-from .wechatUtil import MessageUtil
-from .wechatReply import TextReply
+import urllib
+import urllib2
+
+from wechatUtil import MessageUtil
+from wechatReply import TextReply
+
+class RobotService(object):
+    """Auto reply robot service"""
+    KEY = 'd92d20bc1d8bb3cff585bf746603b2a9'
+    url = 'http://www.tuling123.com/openapi/api'
+    @staticmethod
+    def auto_reply(req_info):
+        query = {'key': RobotService.KEY, 'info': req_info.encode('utf-8')}
+        headers = {'Content-type': 'text/html', 'charset': 'utf-8'}
+        data = urllib.urlencode(query)
+        req = urllib2.Request(RobotService.url, data)
+        f = urllib2.urlopen(req).read()
+        return json.loads(f).get('text').replace('<br>', '\n')
+        #return json.loads(f).get('text')
 
 
 class WechatService(object):
@@ -38,8 +56,9 @@ class WechatService(object):
         textReply.setMsgType(MessageUtil.RESP_MESSAGE_TYPE_TEXT)
 
         if msgType == MessageUtil.REQ_MESSAGE_TYPE_TEXT:
-            content = requestMap.get('Content').decode('utf-8')
-            respContent = u'您发送的是文本消息: ' + content
+            content = requestMap.get('Content').decode('utf-8')    # note: decode first
+            #respContent = u'您发送的是文本消息:' + content
+            respContent = RobotService.auto_reply(content)
         elif msgType == MessageUtil.REQ_MESSAGE_TYPE_IMAGE:
             respContent = u'您发送的是图片消息！'
         elif msgType == MessageUtil.REQ_MESSAGE_TYPE_VOICE:
@@ -53,7 +72,7 @@ class WechatService(object):
         elif msgType == MessageUtil.REQ_MESSAGE_TYPE_EVENT:
             eventType = requestMap.get(u'Event')
             if eventType == MessageUtil.EVENT_TYPE_SUBSCRIBE:
-                respContent = u'^_^谢谢您的关注，本公众号由王小宁开发(python2.7+django1.4),如果你有兴趣继续开发，' \
+                respContent = u'^_^谢谢您的关注，本公众号由王宁宁开发(python2.7+django1.4),如果你有兴趣继续开发，' \
                               u'可以联系我，就当打发时间了.'
             elif eventType == MessageUtil.EVENT_TYPE_UNSUBSCRIBE:
                 pass
